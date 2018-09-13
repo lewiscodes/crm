@@ -70,13 +70,13 @@ const styles = theme => ({
 })
 
 class Navigation extends Component {
-  constructor () {
-    super()
+  constructor (props) {
+    super(props)
 
     this.state = {
       accountMenuAnchorElement: null,
       navigationOpen: false,
-      contactsMenuOpen: false
+      contactsMenuOpen: this.props.contactMenuOpenOnLoad
     }
 
     this.handleAccountMenuOpen = this.handleAccountMenuOpen.bind(this)

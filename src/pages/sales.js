@@ -5,7 +5,10 @@ import Navigation from '../components/navigation'
 const Sales = () => {
   return (
     <div>
-      <Navigation pageName={'Sales'} />
+      <Navigation pageName={'Sales'} contactMenuOpenOnLoad={false} />
+      <div style={{marginTop: 64, marginLeft: 185}} >
+        Sales
+      </div>
     </div>
   )
 }
