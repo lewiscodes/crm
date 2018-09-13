@@ -27,6 +27,7 @@ import MenuItem from '@material-ui/core/MenuItem'
 import MenuList from '@material-ui/core/MenuList'
 import NetworkIcon from '@material-ui/icons/BusinessCenter'
 import NotificationsIcon from '@material-ui/icons/Notifications'
+import Paper from '@material-ui/core/Paper'
 import ReportIcon from '@material-ui/icons/Assessment'
 import SalesIcon from '@material-ui/icons/MonetizationOn'
 import Toolbar from '@material-ui/core/Toolbar'
@@ -57,7 +58,8 @@ const styles = theme => ({
     minHeight: 64
   },
   menu: {
-    paddingTop: 0
+    paddingTop: 0,
+    paddingBottom: 0
   },
   linkItem: {
     textDecoration: 'none'
@@ -160,6 +162,7 @@ class Navigation extends Component {
     if (this.state.contactsMenuOpen) {
       return (
         <Collapse in={this.state.contactsMenuOpen} timeout='auto' unmountOnExit>
+          <Divider />
           <div className={classes.nestedMenu}>
             <Link to={'/contact'} className={classes.linkItem}>
               <MenuItem>
@@ -169,6 +172,7 @@ class Navigation extends Component {
                 <ListItemText primary='Contact' />
               </MenuItem>
             </Link>
+            <Divider />
             <Link to={'/company'} className={classes.linkItem}>
               <MenuItem>
                 <ListItemIcon>
@@ -177,6 +181,7 @@ class Navigation extends Component {
                 <ListItemText primary='Company' />
               </MenuItem>
             </Link>
+            <Divider />
             <Link to={'/network'} className={classes.linkItem}>
               <MenuItem>
                 <ListItemIcon>
@@ -202,54 +207,56 @@ class Navigation extends Component {
         anchor={'left'}
       >
         <div className={classes.drawerHeader} />
-        <MenuList className={classes.menu}>
-          <Divider />
-          <Link to={'/'} className={classes.linkItem}>
-            <MenuItem>
+        <Paper>
+          <MenuList className={classes.menu}>
+            <Divider />
+            <Link to={'/'} className={classes.linkItem}>
+              <MenuItem>
+                <ListItemIcon>
+                  <HomeIcon />
+                </ListItemIcon>
+                <ListItemText primary='Dashboard' />
+              </MenuItem>
+            </Link>
+            <Divider />
+            <MenuItem onClick={this.handleContactsMenuToggle}>
               <ListItemIcon>
-                <HomeIcon />
+                <ContactsIcon />
               </ListItemIcon>
-              <ListItemText primary='Dashboard' />
+              <ListItemText primary='Contacts' />
+              {this.state.contactsMenuOpen ? <ExpandLess onClick={this.handleClick} /> : <ExpandMore onClick={this.handleClick} />}
             </MenuItem>
-          </Link>
-          <Divider />
-          <MenuItem onClick={this.handleContactsMenuToggle}>
-            <ListItemIcon>
-              <ContactsIcon />
-            </ListItemIcon>
-            <ListItemText primary='Contacts' />
-            {this.state.contactsMenuOpen ? <ExpandLess onClick={this.handleClick} /> : <ExpandMore onClick={this.handleClick} />}
-          </MenuItem>
-          {this.renderContactsMenu()}
-          <Divider />
-          <Link to={'/events'} className={classes.linkItem}>
-            <MenuItem>
-              <ListItemIcon>
-                <EventIcon />
-              </ListItemIcon>
-              <ListItemText primary='Events' />
-            </MenuItem>
-          </Link>
-          <Divider />
-          <Link to={'/sales'} className={classes.linkItem}>
-            <MenuItem>
-              <ListItemIcon>
-                <SalesIcon />
-              </ListItemIcon>
-              <ListItemText primary='Sales' />
-            </MenuItem>
-          </Link>
-          <Divider />
-          <Link to={'/reports'} className={classes.linkItem}>
-            <MenuItem>
-              <ListItemIcon>
-                <ReportIcon />
-              </ListItemIcon>
-              <ListItemText primary='Reports' />
-            </MenuItem>
-          </Link>
-          <Divider />
-        </MenuList>
+            {this.renderContactsMenu()}
+            <Divider />
+            <Link to={'/events'} className={classes.linkItem}>
+              <MenuItem>
+                <ListItemIcon>
+                  <EventIcon />
+                </ListItemIcon>
+                <ListItemText primary='Events' />
+              </MenuItem>
+            </Link>
+            <Divider />
+            <Link to={'/sales'} className={classes.linkItem}>
+              <MenuItem>
+                <ListItemIcon>
+                  <SalesIcon />
+                </ListItemIcon>
+                <ListItemText primary='Sales' />
+              </MenuItem>
+            </Link>
+            <Divider />
+            <Link to={'/reports'} className={classes.linkItem}>
+              <MenuItem>
+                <ListItemIcon>
+                  <ReportIcon />
+                </ListItemIcon>
+                <ListItemText primary='Reports' />
+              </MenuItem>
+            </Link>
+            <Divider />
+          </MenuList>
+        </Paper>
       </Drawer>
     )
   }
