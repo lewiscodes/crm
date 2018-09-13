@@ -8,10 +8,14 @@ import AccountCircle from '@material-ui/icons/AccountCircle'
 import AppBar from '@material-ui/core/AppBar'
 import Badge from '@material-ui/core/Badge'
 import Button from '@material-ui/core/Button'
+import Collapse from '@material-ui/core/Collapse'
+import CompanyIcon from '@material-ui/icons/Business'
 import ContactsIcon from '@material-ui/icons/Contacts'
 import Divider from '@material-ui/core/Divider'
 import Drawer from '@material-ui/core/Drawer'
 import EventIcon from '@material-ui/icons/Event'
+import ExpandLess from '@material-ui/icons/ExpandLess'
+import ExpandMore from '@material-ui/icons/ExpandMore'
 import HomeIcon from '@material-ui/icons/Home'
 import IconButton from '@material-ui/core/IconButton'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
@@ -21,6 +25,7 @@ import Menu from '@material-ui/core/Menu'
 import MenuIcon from '@material-ui/icons/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 import MenuList from '@material-ui/core/MenuList'
+import NetworkIcon from '@material-ui/icons/BusinessCenter'
 import NotificationsIcon from '@material-ui/icons/Notifications'
 import ReportIcon from '@material-ui/icons/Assessment'
 import SalesIcon from '@material-ui/icons/MonetizationOn'
@@ -53,6 +58,12 @@ const styles = theme => ({
   },
   menu: {
     paddingTop: 0
+  },
+  linkItem: {
+    textDecoration: 'none'
+  },
+  nestedMenu: {
+    paddingLeft: theme.spacing.unit * 2
   }
 })
 
@@ -144,6 +155,41 @@ class Navigation extends Component {
   }
 
   renderContactsMenu () {
+    const { classes } = this.props
+
+    if (this.state.contactsMenuOpen) {
+      return (
+        <Collapse in={this.state.contactsMenuOpen} timeout='auto' unmountOnExit>
+          <div className={classes.nestedMenu}>
+            <Link to={'/contact'} className={classes.linkItem}>
+              <MenuItem>
+                <ListItemIcon>
+                  <ContactsIcon />
+                </ListItemIcon>
+                <ListItemText primary='Contact' />
+              </MenuItem>
+            </Link>
+            <Link to={'/company'} className={classes.linkItem}>
+              <MenuItem>
+                <ListItemIcon>
+                  <CompanyIcon />
+                </ListItemIcon>
+                <ListItemText primary='Company' />
+              </MenuItem>
+            </Link>
+            <Link to={'/network'} className={classes.linkItem}>
+              <MenuItem>
+                <ListItemIcon>
+                  <NetworkIcon />
+                </ListItemIcon>
+                <ListItemText primary='Network' />
+              </MenuItem>
+            </Link>
+          </div>
+        </Collapse>
+      )
+    }
+
     return null
   }
 
@@ -158,7 +204,7 @@ class Navigation extends Component {
         <div className={classes.drawerHeader} />
         <MenuList className={classes.menu}>
           <Divider />
-          <Link to={'/'}>
+          <Link to={'/'} className={classes.linkItem}>
             <MenuItem>
               <ListItemIcon>
                 <HomeIcon />
@@ -167,17 +213,16 @@ class Navigation extends Component {
             </MenuItem>
           </Link>
           <Divider />
-          <Link to={'/contact'}>
-            <MenuItem onMouseEnter={this.handleContactsMenuToggle} onMouseLeave={this.handleContactsMenuToggle}>
-              <ListItemIcon>
-                <ContactsIcon />
-              </ListItemIcon>
-              <ListItemText primary='Contacts' />
-            </MenuItem>
-            {this.renderContactsMenu()}
-          </Link>
+          <MenuItem onClick={this.handleContactsMenuToggle}>
+            <ListItemIcon>
+              <ContactsIcon />
+            </ListItemIcon>
+            <ListItemText primary='Contacts' />
+            {this.state.contactsMenuOpen ? <ExpandLess onClick={this.handleClick} /> : <ExpandMore onClick={this.handleClick} />}
+          </MenuItem>
+          {this.renderContactsMenu()}
           <Divider />
-          <Link to={'/events'}>
+          <Link to={'/events'} className={classes.linkItem}>
             <MenuItem>
               <ListItemIcon>
                 <EventIcon />
@@ -186,7 +231,7 @@ class Navigation extends Component {
             </MenuItem>
           </Link>
           <Divider />
-          <Link to={'/sales'}>
+          <Link to={'/sales'} className={classes.linkItem}>
             <MenuItem>
               <ListItemIcon>
                 <SalesIcon />
@@ -195,7 +240,7 @@ class Navigation extends Component {
             </MenuItem>
           </Link>
           <Divider />
-          <Link to={'/reports'}>
+          <Link to={'/reports'} className={classes.linkItem}>
             <MenuItem>
               <ListItemIcon>
                 <ReportIcon />
