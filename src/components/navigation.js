@@ -139,7 +139,7 @@ class Navigation extends Component {
             </Badge>
           </IconButton>
           <IconButton color={'inherit'}>
-            <Badge badgeContent={4} color={'secondary'}>
+            <Badge badgeContent={11} color={'secondary'}>
               <NotificationsIcon />
             </Badge>
           </IconButton>

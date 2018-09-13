@@ -5,16 +5,30 @@ import { withRouter } from 'react-router'
 
 import { withStyles } from '@material-ui/core/styles'
 
+import Amber from '@material-ui/core/colors/amber'
 import Avatar from '@material-ui/core/Avatar'
+import BlueGrey from '@material-ui/core/colors/blueGrey'
+import Button from '@material-ui/core/Button'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import CardHeader from '@material-ui/core/CardHeader'
 import Collapse from '@material-ui/core/Collapse'
+import Cyan from '@material-ui/core/colors/cyan'
 import Divider from '@material-ui/core/Divider'
 import ExpandLessIcon from '@material-ui/icons/ExpandLess'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+import LightGreen from '@material-ui/core/colors/lightGreen'
 import IconButton from '@material-ui/core/IconButton'
+import Paper from '@material-ui/core/Paper'
+import Pink from '@material-ui/core/colors/pink'
 import Purple from '@material-ui/core/colors/purple'
+import Table from '@material-ui/core/Table'
+import TableBody from '@material-ui/core/TableBody'
+import TableCell from '@material-ui/core/TableCell'
+import TableHead from '@material-ui/core/TableHead'
+import TableRow from '@material-ui/core/TableRow'
+import TextField from '@material-ui/core/TextField'
+import Tooltip from '@material-ui/core/Tooltip'
 
 const styles = theme => ({
   root: {
@@ -31,8 +45,55 @@ const styles = theme => ({
   collapsingCard: {
     cursor: 'pointer'
   },
-  avatar: {
+  userAvatar: {
     backgroundColor: Purple[500]
+  },
+  aboutCard: {
+    display: 'flex',
+    flexDirection: 'column'
+  },
+  subscriptionCard: {
+    display: 'flex',
+    justifyContent: 'center'
+  },
+  formCard: {
+    display: 'flex'
+  },
+  casesCard: {
+    overflow: 'scroll'
+  },
+  textField: {
+    fontSize: 11
+  },
+  commercialAvatar: {
+    marginLeft: theme.spacing.unit / 2,
+    marginRight: theme.spacing.unit / 2,
+    backgroundColor: Amber[700]
+  },
+  btlAvatar: {
+    marginLeft: theme.spacing.unit / 2,
+    marginRight: theme.spacing.unit / 2,
+    backgroundColor: BlueGrey[400]
+  },
+  developmentAvatar: {
+    marginLeft: theme.spacing.unit / 2,
+    marginRight: theme.spacing.unit / 2,
+    backgroundColor: Pink[500]
+  },
+  mortgageAvatar: {
+    marginLeft: theme.spacing.unit / 2,
+    marginRight: theme.spacing.unit / 2,
+    backgroundColor: Purple[900]
+  },
+  secondChargeAvatar: {
+    marginLeft: theme.spacing.unit / 2,
+    marginRight: theme.spacing.unit / 2,
+    backgroundColor: LightGreen['A200']
+  },
+  bridgingAvatar: {
+    marginLeft: theme.spacing.unit / 2,
+    marginRight: theme.spacing.unit / 2,
+    backgroundColor: Cyan[800]
   }
 })
 
@@ -66,7 +127,7 @@ class ContactInfo extends Component {
     return (
       <Card className={classes.card}>
         <CardHeader
-          avatar={<Avatar className={classes.avatar}>LT</Avatar>}
+          avatar={<Avatar className={classes.userAvatar}>LT</Avatar>}
           title={'Lewis Turner'}
           subheader={'Lewis Codes Ltd'}
         />
@@ -100,7 +161,108 @@ class ContactInfo extends Component {
   }
 
   renderAboutCardContent () {
-    return null
+    const { classes } = this.props
+
+    return (
+      <div className={classes.aboutCard}>
+        <TextField
+          id={'firstName'}
+          label={'First Name'}
+          value={'Lewis'}
+          InputProps={{classes: {input: classes.textField}}}
+          margin={'normal'}
+          disabled
+        />
+        <TextField
+          id={'lastName'}
+          label={'Last Name'}
+          value={'Turner'}
+          InputProps={{classes: {input: classes.textField}}}
+          margin={'normal'}
+          disabled
+        />
+        <TextField
+          id={'company'}
+          label={'Company'}
+          value={'Lewis Codes Ltd'}
+          InputProps={{classes: {input: classes.textField}}}
+          margin={'normal'}
+          disabled
+        />
+        <TextField
+          id={'email'}
+          label={'Email Address'}
+          value={'lewis@lewiscodes.com'}
+          InputProps={{classes: {input: classes.textField}}}
+          margin={'normal'}
+          disabled
+        />
+        <TextField
+          id={'altEmail'}
+          label={'Alternative Email'}
+          value={'l.turner@crystalsf.com'}
+          InputProps={{classes: {input: classes.textField}}}
+          margin={'normal'}
+          disabled
+        />
+        <TextField
+          id={'phone'}
+          label={'Phone Number'}
+          value={'01922112233'}
+          InputProps={{classes: {input: classes.textField}}}
+          margin={'normal'}
+          disabled
+        />
+        <TextField
+          id={'mobile'}
+          label={'Mobile Number'}
+          value={'07866460214'}
+          InputProps={{classes: {input: classes.textField}}}
+          margin={'normal'}
+          disabled
+        />
+        <TextField
+          id={'bdm'}
+          label={'BDM'}
+          value={'Kris Corns'}
+          InputProps={{classes: {input: classes.textField}}}
+          margin={'normal'}
+          disabled
+        />
+        <TextField
+          id={'tier'}
+          label={'Tier'}
+          value={'Silver'}
+          InputProps={{classes: {input: classes.textField}}}
+          margin={'normal'}
+          disabled
+        />
+        <TextField
+          id={'regStat'}
+          label={'Reg Stat'}
+          value={''}
+          InputProps={{classes: {input: classes.textField}}}
+          margin={'normal'}
+          disabled
+        />
+        <TextField
+          id={'network'}
+          label={'network'}
+          value={'PTFS'}
+          InputProps={{classes: {input: classes.textField}}}
+          margin={'normal'}
+          disabled
+        />
+        <TextField
+          id={'linkedIn'}
+          label={'Linked In'}
+          value={'https://www.linkedin.com/in/lewis-turner-26796213b'}
+          InputProps={{classes: {input: classes.textField}}}
+          margin={'normal'}
+          disabled
+        />
+      </div>
+    )
   }
 
   renderSubscriptionsCard () {
@@ -121,10 +283,20 @@ class ContactInfo extends Component {
         <Collapse in={this.state.subscriptionsCardOpen} timeout='auto' unmountOnExit>
           <Divider />
           <CardContent>
-            <div>Subscriptions</div>
+            {this.renderSubscriptionsContent()}
           </CardContent>
         </Collapse>
       </Card>
+    )
+  }
+
+  renderSubscriptionsContent () {
+    const { classes } = this.props
+
+    return (
+      <div className={classes.subscriptionCard}>
+        <Button variant={'outlined'} color={'primary'}>Add Subscription</Button>
+      </div>
     )
   }
 
@@ -146,10 +318,34 @@ class ContactInfo extends Component {
         <Collapse in={this.state.formCardOpen} timeout='auto' unmountOnExit>
           <Divider />
           <CardContent>
-            <div>Form</div>
+            {this.renderFormContent()}
           </CardContent>
         </Collapse>
       </Card>
+    )
+  }
+
+  renderFormContent () {
+    const { classes } = this.props
+
+    return (
+      <div className={classes.formCard}>
+        <Tooltip title={'Mr P Merson, £500,000, 20.08.2018'}>
+          <Avatar className={classes.commercialAvatar}>C</Avatar>
+        </Tooltip>
+        <Tooltip title={'Mr D Dublin, £58,000, 01.08.2018'}>
+          <Avatar className={classes.developmentAvatar}>D</Avatar>
+        </Tooltip>
+        <Tooltip title={'Mr J P Angel, £225,000, 13.07.2018'}>
+          <Avatar className={classes.mortgageAvatar}>M</Avatar>
+        </Tooltip>
+        <Tooltip title={'Mr G Barry, £75,000, 12.07.2018'}>
+          <Avatar className={classes.secondChargeAvatar}>S</Avatar>
+        </Tooltip>
+        <Tooltip title={'Mr J Carew, £23,000, 29.06.2018'}>
+          <Avatar className={classes.bridgingAvatar}>B</Avatar>
+        </Tooltip>
+      </div>
     )
   }
 
@@ -171,10 +367,19 @@ class ContactInfo extends Component {
         <Collapse in={this.state.leadsCardOpen} timeout='auto' unmountOnExit>
           <Divider />
           <CardContent>
-            <div>Leads</div>
+            {this.renderLeadsContent()}
           </CardContent>
         </Collapse>
       </Card>
+    )
+  }
+
+  renderLeadsContent () {
+    const { classes } = this.props
+    return (
+      <div className={classes.subscriptionCard}>
+        <Button variant={'outlined'} color={'primary'}>Add Lead</Button>
+      </div>
     )
   }
 
@@ -196,10 +401,45 @@ class ContactInfo extends Component {
         <Collapse in={this.state.casesCardOpen} timeout='auto' unmountOnExit>
           <Divider />
           <CardContent>
-            <div>Cases</div>
+            {this.renderCasesContent()}
           </CardContent>
         </Collapse>
       </Card>
+    )
+  }
+
+  renderCasesContent () {
+    const { classes } = this.props
+
+    return (
+      <Paper className={classes.casesCard}>
+        <Table padding={'checkbox'}>
+          <TableHead>
+            <TableRow>
+              <TableCell>Client</TableCell>
+              <TableCell>Type</TableCell>
+              <TableCell>Amount</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            <TableRow>
+              <TableCell>Mr A Young</TableCell>
+              <TableCell>Commercial</TableCell>
+              <TableCell>£125,000</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>Mr D Yorke</TableCell>
+              <TableCell>Bridging</TableCell>
+              <TableCell>£15,000</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>Mr A Wright</TableCell>
+              <TableCell>BTL</TableCell>
+              <TableCell>£155,000</TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
+      </Paper>
     )
   }
 
@@ -221,7 +461,7 @@ class ContactInfo extends Component {
         <Collapse in={this.state.ticketsCardOpen} timeout='auto' unmountOnExit>
           <Divider />
           <CardContent>
-            <div>Tickets</div>
+            ticket
           </CardContent>
         </Collapse>
       </Card>
