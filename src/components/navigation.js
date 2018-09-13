@@ -219,7 +219,7 @@ class Navigation extends Component {
               </MenuItem>
             </Link>
             <Divider />
-            <MenuItem onClick={this.handleContactsMenuToggle}>
+            <MenuItem onClick={this.handleContactsMenuToggle} disableRipple>
               <ListItemIcon>
                 <ContactsIcon />
               </ListItemIcon>
