@@ -461,10 +461,37 @@ class ContactInfo extends Component {
         <Collapse in={this.state.ticketsCardOpen} timeout='auto' unmountOnExit>
           <Divider />
           <CardContent>
-            ticket
+            {this.renderTicketsContent()}
           </CardContent>
         </Collapse>
       </Card>
+    )
+  }
+
+  renderTicketsContent () {
+    const { classes } = this.props
+
+    return (
+      <Paper className={classes.casesCard}>
+        <Table padding={'checkbox'}>
+          <TableHead>
+            <TableRow>
+              <TableCell>Client</TableCell>
+              <TableCell>Description</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            <TableRow>
+              <TableCell>Mr J Milner</TableCell>
+              <TableCell>Client is away on Holiday for 2 weeks.</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>Mr C Benteke</TableCell>
+              <TableCell>Lender has asked for extra proof of income.</TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
+      </Paper>
     )
   }
 
@@ -486,10 +513,67 @@ class ContactInfo extends Component {
         <Collapse in={this.state.companyCardOpen} timeout='auto' unmountOnExit>
           <Divider />
           <CardContent>
-            <div>Company</div>
+            {this.renderCompanyContent()}
           </CardContent>
         </Collapse>
       </Card>
+    )
+  }
+
+  renderCompanyContent () {
+    const { classes } = this.props
+
+    return (
+      <div className={classes.aboutCard}>
+        <TextField
+          id={'companyName'}
+          label={'Company Name'}
+          value={'Lewis Codes Ltd'}
+          InputProps={{classes: {input: classes.textField}}}
+          margin={'normal'}
+          disabled
+        />
+        <TextField
+          id={'address'}
+          label={'Address'}
+          value={'10 Downing Street, London.'}
+          InputProps={{classes: {input: classes.textField}}}
+          margin={'normal'}
+          disabled
+        />
+        <TextField
+          id={'website'}
+          label={'Website'}
+          value={'www.lewiscodes.com'}
+          InputProps={{classes: {input: classes.textField}}}
+          margin={'normal'}
+          disabled
+        />
+        <TextField
+          id={'fcaNumber'}
+          label={'FCA #'}
+          value={'123456'}
+          InputProps={{classes: {input: classes.textField}}}
+          margin={'normal'}
+          disabled
+        />
+        <TextField
+          id={'phone'}
+          label={'Phone Number'}
+          value={'01922112233'}
+          InputProps={{classes: {input: classes.textField}}}
+          margin={'normal'}
+          disabled
+        />
+        <TextField
+          id={'linkedIn'}
+          label={'Linked In'}
+          value={'https://www.linkedin.com/in/lewis-turner-26796213b'}
+          InputProps={{classes: {input: classes.textField}}}
+          margin={'normal'}
+          disabled
+        />
+      </div>
     )
   }
 
@@ -511,10 +595,44 @@ class ContactInfo extends Component {
         <Collapse in={this.state.networkCardOpen} timeout='auto' unmountOnExit>
           <Divider />
           <CardContent>
-            <div>Network</div>
+            {this.renderNetworkContent()}
           </CardContent>
         </Collapse>
       </Card>
+    )
+  }
+
+  renderNetworkContent () {
+    const { classes } = this.props
+
+    return (
+      <div className={classes.aboutCard}>
+        <TextField
+          id={'networkName'}
+          label={'Network Name'}
+          value={'Personal Touch Financial Services'}
+          InputProps={{classes: {input: classes.textField}}}
+          margin={'normal'}
+          disabled
+        />
+        <TextField
+          id={'networkContact'}
+          label={'Network Contact'}
+          value={''}
+          InputProps={{classes: {input: classes.textField}}}
+          margin={'normal'}
+          disabled
+        />
+        <TextField
+          id={'dealNotes'}
+          label={'Deal Notes'}
+          value={''}
+          InputProps={{classes: {input: classes.textField}}}
+          margin={'normal'}
+          multiline
+          disabled
+        />
+      </div>
     )
   }
 
@@ -536,10 +654,20 @@ class ContactInfo extends Component {
         <Collapse in={this.state.attachmentsCardOpen} timeout='auto' unmountOnExit>
           <Divider />
           <CardContent>
-            <div>Attachments</div>
+            {this.renderAttachmentContent()}
           </CardContent>
         </Collapse>
       </Card>
+    )
+  }
+
+  renderAttachmentContent () {
+    const { classes } = this.props
+
+    return (
+      <div className={classes.subscriptionCard}>
+        <Button variant={'outlined'} color={'primary'}>Add Attachment</Button>
+      </div>
     )
   }
 
@@ -561,10 +689,50 @@ class ContactInfo extends Component {
         <Collapse in={this.state.emailsCardOpen} timeout='auto' unmountOnExit>
           <Divider />
           <CardContent>
-            <div>Emails</div>
+            {this.renderEmailsContent()}
           </CardContent>
         </Collapse>
       </Card>
+    )
+  }
+
+  renderEmailsContent () {
+    const { classes } = this.props
+
+    return (
+      <Paper className={classes.casesCard}>
+        <Table padding={'checkbox'}>
+          <TableHead>
+            <TableRow>
+              <TableCell>Email</TableCell>
+              <TableCell>Sent</TableCell>
+              <TableCell>Opened</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            <TableRow>
+              <TableCell>4</TableCell>
+              <TableCell>01.09.2018</TableCell>
+              <TableCell>-</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>3</TableCell>
+              <TableCell>20.08.2018</TableCell>
+              <TableCell>22.08.2018</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>2</TableCell>
+              <TableCell>02.08.2018</TableCell>
+              <TableCell>05.08.2018</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>1</TableCell>
+              <TableCell>23.06.2018</TableCell>
+              <TableCell>23.06.2018</TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
+      </Paper>
     )
   }
 
