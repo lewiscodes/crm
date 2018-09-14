@@ -2,13 +2,15 @@ import React from 'react'
 
 import Navigation from '../components/navigation'
 import ContactInfo from '../components/contactInfo'
+import ContactData from '../components/contactData'
 
 const Contact = () => {
   return (
     <div>
       <Navigation pageName={'Contact'} contactMenuOpenOnLoad />
-      <div style={{marginTop: 64, marginLeft: 185}} >
+      <div style={{marginTop: 64, marginLeft: 185, display: 'flex'}} >
         <ContactInfo />
+        <ContactData />
       </div>
     </div>
   )
