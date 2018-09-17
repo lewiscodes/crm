@@ -8,7 +8,7 @@ const Contact = () => {
   return (
     <div>
       <Navigation pageName={'Contact'} contactMenuOpenOnLoad />
-      <div style={{marginTop: 64, marginLeft: 185, display: 'flex'}} >
+      <div style={{marginTop: 120, height: 0, display: 'flex'}} >
         <ContactInfo />
         <ContactData />
       </div>

@@ -11,7 +11,7 @@ import ContactItems from './contactItems'
 const styles = theme => ({
   root: {
     width: '75%',
-    height: 'calc(100vh - 76px)',
+    height: 'calc(100vh - 128px)',
     overflow: 'scroll'
   }
 })

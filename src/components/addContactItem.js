@@ -21,7 +21,8 @@ import Tabs from '@material-ui/core/Tabs'
 const styles = theme => ({
   root: {
     padding: theme.spacing.unit,
-    margin: theme.spacing.unit * 2
+    margin: theme.spacing.unit * 2,
+    marginTop: 0
   }
 })
 

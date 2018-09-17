@@ -36,8 +36,13 @@ const styles = theme => ({
     width: '25%',
     maxWidth: '300px',
     borderRight: '1px solid rgba(0, 0, 0, 0.08)',
-    height: 'calc(100vh - 76px)',
-    overflow: 'scroll'
+    height: 'calc(100vh - 128px)',
+    overflow: 'scroll',
+    paddingTop: 0
+  },
+  firstCard: {
+    margin: theme.spacing.unit,
+    marginTop: 0
   },
   card: {
     margin: theme.spacing.unit
@@ -125,7 +130,7 @@ class ContactInfo extends Component {
     const { classes } = this.props
 
     return (
-      <Card className={classes.card}>
+      <Card className={classes.firstCard}>
         <CardHeader
           avatar={<Avatar className={classes.userAvatar}>LT</Avatar>}
           title={'Lewis Turner'}

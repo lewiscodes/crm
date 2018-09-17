@@ -10,11 +10,8 @@ import Typography from '@material-ui/core/Typography'
 
 const styles = theme => ({
   root: {
-    height: 'calc(100vh - 305px)',
+    height: 'calc(100vh - 344px)',
     overflow: 'scroll'
-    // display: 'flex',
-    // flexDirection: 'column',
-    // justifyContent: 'center'
   },
   dateHeader: {
     marginLeft: theme.spacing.unit * 2,

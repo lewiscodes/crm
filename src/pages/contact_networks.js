@@ -7,7 +7,7 @@ const NetworkContacts = () => {
   return (
     <div>
       <Navigation pageName={'Contacts - Network'} contactMenuOpenOnLoad />
-      <div style={{marginTop: 64, marginLeft: 185}}>
+      <div style={{marginTop: 120, height: 0}}>
         <NetworkContactTable />
       </div>
     </div>

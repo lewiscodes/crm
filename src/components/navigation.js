@@ -8,7 +8,6 @@ import AccountCircle from '@material-ui/icons/AccountCircle'
 import AppBar from '@material-ui/core/AppBar'
 import Badge from '@material-ui/core/Badge'
 import Button from '@material-ui/core/Button'
-import Collapse from '@material-ui/core/Collapse'
 import CompanyIcon from '@material-ui/icons/Business'
 import ContactsIcon from '@material-ui/icons/Contacts'
 import Divider from '@material-ui/core/Divider'
@@ -58,8 +57,13 @@ const styles = theme => ({
     minHeight: 64
   },
   menu: {
+    display: 'flex',
     paddingTop: 0,
     paddingBottom: 0
+  },
+  menuItem: {
+    borderLeft: '1px solid rgba(0, 0, 0, 0.12)',
+    borderRight: '1px solid rgba(0, 0, 0, 0.12)'
   },
   linkItem: {
     textDecoration: 'none'
@@ -76,18 +80,23 @@ class Navigation extends Component {
     this.state = {
       accountMenuAnchorElement: null,
       navigationOpen: false,
-      contactsMenuOpen: this.props.contactMenuOpenOnLoad
+      contactsMenuAnchorElement: null
     }
 
     this.handleAccountMenuOpen = this.handleAccountMenuOpen.bind(this)
     this.handleAccountMenuClose = this.handleAccountMenuClose.bind(this)
     this.handleLogout = this.handleLogout.bind(this)
     this.handleNavigationToggle = this.handleNavigationToggle.bind(this)
-    this.handleContactsMenuToggle = this.handleContactsMenuToggle.bind(this)
+    this.handleContactsMenuOpen = this.handleContactsMenuOpen.bind(this)
+    this.handleContactsMenuClose = this.handleContactsMenuClose.bind(this)
   }
 
-  handleContactsMenuToggle () {
-    this.setState({contactsMenuOpen: !this.state.contactsMenuOpen})
+  handleContactsMenuOpen (e) {
+    this.setState({contactsMenuAnchorElement: e.currentTarget})
+  }
+
+  handleContactsMenuClose () {
+    this.setState({contactsMenuAnchorElement: null})
   }
 
   handleAccountMenuOpen (e) {
@@ -159,43 +168,46 @@ class Navigation extends Component {
   renderContactsMenu () {
     const { classes } = this.props
 
-    if (this.state.contactsMenuOpen) {
-      return (
-        <Collapse in={this.state.contactsMenuOpen} timeout='auto' unmountOnExit>
-          <Divider />
-          <div className={classes.nestedMenu}>
-            <Link to={'/contact'} className={classes.linkItem}>
-              <MenuItem>
-                <ListItemIcon>
-                  <ContactsIcon />
-                </ListItemIcon>
-                <ListItemText primary='Contact' />
-              </MenuItem>
-            </Link>
-            <Divider />
-            <Link to={'/company'} className={classes.linkItem}>
-              <MenuItem>
-                <ListItemIcon>
-                  <CompanyIcon />
-                </ListItemIcon>
-                <ListItemText primary='Company' />
-              </MenuItem>
-            </Link>
-            <Divider />
-            <Link to={'/network'} className={classes.linkItem}>
-              <MenuItem>
-                <ListItemIcon>
-                  <NetworkIcon />
-                </ListItemIcon>
-                <ListItemText primary='Network' />
-              </MenuItem>
-            </Link>
-          </div>
-        </Collapse>
-      )
-    }
-
-    return null
+    return (
+      <Menu
+        id={'simple-menu'}
+        anchorEl={this.state.contactsMenuAnchorElement}
+        open={Boolean(this.state.contactsMenuAnchorElement)}
+        onClose={this.handleContactsMenuClose}
+        getContentAnchorEl={null}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left'
+        }}
+      >
+        <Link to={'/contact'} className={classes.linkItem}>
+          <MenuItem>
+            <ListItemIcon>
+              <ContactsIcon />
+            </ListItemIcon>
+            <ListItemText primary='Contact' />
+          </MenuItem>
+        </Link>
+        <Divider />
+        <Link to={'/company'} className={classes.linkItem}>
+          <MenuItem>
+            <ListItemIcon>
+              <CompanyIcon />
+            </ListItemIcon>
+            <ListItemText primary='Company' />
+          </MenuItem>
+        </Link>
+        <Divider />
+        <Link to={'/network'} className={classes.linkItem}>
+          <MenuItem>
+            <ListItemIcon>
+              <NetworkIcon />
+            </ListItemIcon>
+            <ListItemText primary='Network' />
+          </MenuItem>
+        </Link>
+      </Menu>
+    )
   }
 
   renderNavigation () {
@@ -204,14 +216,14 @@ class Navigation extends Component {
     return (
       <Drawer
         variant={'permanent'}
-        anchor={'left'}
+        anchor={'top'}
       >
         <div className={classes.drawerHeader} />
         <Paper>
           <MenuList className={classes.menu}>
             <Divider />
             <Link to={'/'} className={classes.linkItem}>
-              <MenuItem>
+              <MenuItem className={classes.menuItem}>
                 <ListItemIcon>
                   <HomeIcon />
                 </ListItemIcon>
@@ -219,17 +231,17 @@ class Navigation extends Component {
               </MenuItem>
             </Link>
             <Divider />
-            <MenuItem onClick={this.handleContactsMenuToggle} disableRipple>
+            <MenuItem onClick={this.state.contactsMenuAnchorElement ? this.handleContactsMenuClose : this.handleContactsMenuOpen} disableRipple className={classes.menuItem}>
               <ListItemIcon>
                 <ContactsIcon />
               </ListItemIcon>
               <ListItemText primary='Contacts' />
-              {this.state.contactsMenuOpen ? <ExpandLess onClick={this.handleClick} /> : <ExpandMore onClick={this.handleClick} />}
+              {this.state.contactsMenuAnchorElement ? <ExpandLess onClick={this.handleClick} /> : <ExpandMore onClick={this.handleClick} />}
+              {this.renderContactsMenu()}
             </MenuItem>
-            {this.renderContactsMenu()}
             <Divider />
             <Link to={'/events'} className={classes.linkItem}>
-              <MenuItem>
+              <MenuItem className={classes.menuItem}>
                 <ListItemIcon>
                   <EventIcon />
                 </ListItemIcon>
@@ -238,7 +250,7 @@ class Navigation extends Component {
             </Link>
             <Divider />
             <Link to={'/sales'} className={classes.linkItem}>
-              <MenuItem>
+              <MenuItem className={classes.menuItem}>
                 <ListItemIcon>
                   <SalesIcon />
                 </ListItemIcon>
@@ -247,7 +259,7 @@ class Navigation extends Component {
             </Link>
             <Divider />
             <Link to={'/reports'} className={classes.linkItem}>
-              <MenuItem>
+              <MenuItem className={classes.menuItem}>
                 <ListItemIcon>
                   <ReportIcon />
                 </ListItemIcon>
