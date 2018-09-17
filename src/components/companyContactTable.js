@@ -33,7 +33,7 @@ class CompanyContactTable extends Component {
         <TableRow key={index}>
           <TableCell>{company.name}</TableCell>
           <TableCell>{company.address}</TableCell>
-          <TableCell><Link to={'/network'}>{network[0][0].name}</Link></TableCell>
+          <TableCell><Link to={'/crm/network'}>{network[0][0].name}</Link></TableCell>
           <TableCell>{company.telephone}</TableCell>
           <TableCell>{company.website}</TableCell>
           <TableCell>{company.fcaNumber}</TableCell>

@@ -2,7 +2,7 @@
   "name": "crystal-crm",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://lewiscodes.github.io/crm/",
+  "homepage": "https://lewiscodes.github.io/crm",
   "dependencies": {
     "@material-ui/core": "^3.0.3",
     "@material-ui/icons": "^3.0.1",

@@ -180,7 +180,7 @@ class Navigation extends Component {
           horizontal: 'left'
         }}
       >
-        <Link to={'/contact'} className={classes.linkItem}>
+        <Link to={'/crm/contact'} className={classes.linkItem}>
           <MenuItem>
             <ListItemIcon>
               <ContactsIcon />
@@ -189,7 +189,7 @@ class Navigation extends Component {
           </MenuItem>
         </Link>
         <Divider />
-        <Link to={'/company'} className={classes.linkItem}>
+        <Link to={'/crm/company'} className={classes.linkItem}>
           <MenuItem>
             <ListItemIcon>
               <CompanyIcon />
@@ -198,7 +198,7 @@ class Navigation extends Component {
           </MenuItem>
         </Link>
         <Divider />
-        <Link to={'/network'} className={classes.linkItem}>
+        <Link to={'/crm/network'} className={classes.linkItem}>
           <MenuItem>
             <ListItemIcon>
               <NetworkIcon />
@@ -222,7 +222,7 @@ class Navigation extends Component {
         <Paper>
           <MenuList className={classes.menu}>
             <Divider />
-            <Link to={'/'} className={classes.linkItem}>
+            <Link to={'/crm/'} className={classes.linkItem}>
               <MenuItem className={classes.menuItem}>
                 <ListItemIcon>
                   <HomeIcon />
@@ -240,7 +240,7 @@ class Navigation extends Component {
               {this.renderContactsMenu()}
             </MenuItem>
             <Divider />
-            <Link to={'/events'} className={classes.linkItem}>
+            <Link to={'/crm/events'} className={classes.linkItem}>
               <MenuItem className={classes.menuItem}>
                 <ListItemIcon>
                   <EventIcon />
@@ -249,7 +249,7 @@ class Navigation extends Component {
               </MenuItem>
             </Link>
             <Divider />
-            <Link to={'/sales'} className={classes.linkItem}>
+            <Link to={'/crm/sales'} className={classes.linkItem}>
               <MenuItem className={classes.menuItem}>
                 <ListItemIcon>
                   <SalesIcon />
@@ -258,7 +258,7 @@ class Navigation extends Component {
               </MenuItem>
             </Link>
             <Divider />
-            <Link to={'/reports'} className={classes.linkItem}>
+            <Link to={'/crm/reports'} className={classes.linkItem}>
               <MenuItem className={classes.menuItem}>
                 <ListItemIcon>
                   <ReportIcon />
