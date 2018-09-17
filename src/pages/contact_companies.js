@@ -1,5 +1,6 @@
 import React from 'react'
 
+import CompanyContactTable from '../components/companyContactTable'
 import Navigation from '../components/navigation'
 
 const CompaniesContacts = () => {
@@ -7,7 +8,7 @@ const CompaniesContacts = () => {
     <div>
       <Navigation pageName={'Contacts - Companies'} contactMenuOpenOnLoad />
       <div style={{marginTop: 64, marginLeft: 185}} >
-        Companies Contact
+        <CompanyContactTable />
       </div>
     </div>
   )

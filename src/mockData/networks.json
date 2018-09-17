@@ -5,7 +5,7 @@
       "name": "Personal Touch Financial Services",
       "address": "1 Main Street, Solihull, Birmingham, United Kingdom",
       "contactName": "Jane Cross",
-      "dealNotes": "This is a deal note"
+      "dealNotes": "This is a deal note for Personal Touch Financial Services"
     }
   ],
   [
@@ -14,7 +14,7 @@
       "name": "Sesame Bankhall",
       "address": "Manor House, 56 Bank Street, London, United Kingdon",
       "contactName": "Jake Mann",
-      "dealNotes": "This is a deal note"
+      "dealNotes": "This is a deal note for Sesame Bankhall"
     }
   ],
   [
@@ -23,7 +23,7 @@
       "name": "PRIMIS Mortgage Network",
       "address": "Primuis, Trading Estate, Lichfield, United Kingdom",
       "contactName": "Helen Taylor",
-      "dealNotes": "This is a deal note"
+      "dealNotes": "This is a deal note for PRIMIS Mortgage Network"
     }
   ]
 ]
