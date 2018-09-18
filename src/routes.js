@@ -6,6 +6,7 @@ import Dashboard from './pages/dashboard'
 import CompaniesContacts from './pages/contact_companies'
 import Contact from './pages/contact_contacts'
 import NetworkContacts from './pages/contact_networks'
+import ContactsTable from './pages/contacts_table'
 import Events from './pages/events'
 import Reports from './pages/reports'
 import Sales from './pages/sales'
@@ -14,7 +15,8 @@ export default (
   <Route path='/crm/' component={App} >
     <IndexRoute component={Dashboard} />
     <Route path='/crm/company' component={CompaniesContacts} />
-    <Route path='/crm/contact' component={Contact} />
+    <Route path='/crm/contact' component={ContactsTable} />
+    <Route path='/crm/contact/:id' component={Contact} />
     <Route path='/crm/network' component={NetworkContacts} />
     <Route path='/crm/events' component={Events} />
     <Route path='/crm/reports' component={Reports} />

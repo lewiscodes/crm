@@ -11,21 +11,41 @@ import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
+import TextField from '@material-ui/core/TextField'
 
 const styles = theme => ({
   root: {
     padding: theme.spacing.unit,
     width: '90%',
     margin: 'auto'
+  },
+  filter: {
+    marginBottom: theme.spacing.unit * 3
   }
 })
 
 class NetworkContactTable extends Component {
-  renderNetworkContactTableRows () {
-    return this.props.networks.map((network, index) => {
-      network = network[0]
+  constructor (props) {
+    super(props)
 
-      console.log('network', network)
+    this.state = {
+      filter: '',
+      networks: props.networks
+    }
+
+    this.handleFilterChange = this.handleFilterChange.bind(this)
+  }
+
+  handleFilterChange (e) {
+    this.setState({filter: e.target.value})
+    this.setState({networks: this.props.networks.filter((network) => {
+      return network[0].name.toLowerCase().includes(e.target.value.toLowerCase())
+    })})
+  }
+
+  renderNetworkContactTableRows () {
+    return this.state.networks.map((network, index) => {
+      network = network[0]
 
       return (
         <TableRow key={index}>
@@ -43,6 +63,14 @@ class NetworkContactTable extends Component {
 
     return (
       <div className={classes.root}>
+        <TextField
+          id={'filter'}
+          className={classes.filter}
+          placeholder={'Filter Networks'}
+          value={this.state.filter}
+          onChange={this.handleFilterChange}
+          margin={'normal'}
+        />
         <Paper className={classes.casesCard}>
           <Table padding={'checkbox'}>
             <TableHead>

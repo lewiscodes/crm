@@ -24,13 +24,13 @@ const styles = theme => ({
   }
 })
 
-class CompanyContactTable extends Component {
+class ContactsTable extends Component {
   constructor (props) {
     super(props)
 
     this.state = {
       filter: '',
-      companies: props.companies
+      contacts: props.contacts
     }
 
     this.handleFilterChange = this.handleFilterChange.bind(this)
@@ -38,28 +38,33 @@ class CompanyContactTable extends Component {
 
   handleFilterChange (e) {
     this.setState({filter: e.target.value})
-    this.setState({companies: this.props.companies.filter((company) => {
-      return company[0].name.toLowerCase().includes(e.target.value.toLowerCase())
+    this.setState({contacts: this.props.contacts.filter((contact) => {
+      const name = `${contact[0].firstName} ${contact[0].lastName}`
+      return name.toLowerCase().includes(e.target.value.toLowerCase())
     })})
   }
 
   renderCompanyContactTableRows () {
-    return this.state.companies.map((company, index) => {
-      company = company[0]
+    return this.state.contacts.map((contact, index) => {
+      contact = contact[0]
+
+      const company = this.props.companies.filter(company => {
+        return company[0].id === contact.CompayID
+      })
 
       const network = this.props.networks.filter(network => {
-        return network[0].id === company.networkID
+        return network[0].id === company[0][0].networkID
       })
 
       return (
         <TableRow key={index}>
-          <TableCell>{company.name}</TableCell>
-          <TableCell>{company.address}</TableCell>
+          <TableCell><Link to={`/crm/contact/${contact.id}`}>{`${contact.firstName} ${contact.lastName}`}</Link></TableCell>
+          <TableCell><Link to={'/crm/company'}>{company[0][0].name}</Link></TableCell>
           <TableCell><Link to={'/crm/network'}>{network[0][0].name}</Link></TableCell>
-          <TableCell>{company.telephone}</TableCell>
-          <TableCell>{company.website}</TableCell>
-          <TableCell>{company.fcaNumber}</TableCell>
-          <TableCell>{company.linkedIn}</TableCell>
+          <TableCell>{contact.phone}</TableCell>
+          <TableCell>{contact.mobile}</TableCell>
+          <TableCell>{contact.email}</TableCell>
+          <TableCell>{contact.Tier}</TableCell>
         </TableRow>
       )
     })
@@ -82,13 +87,13 @@ class CompanyContactTable extends Component {
           <Table padding={'checkbox'}>
             <TableHead>
               <TableRow>
+                <TableCell>Name</TableCell>
                 <TableCell>Company</TableCell>
-                <TableCell>Address</TableCell>
                 <TableCell>Network</TableCell>
                 <TableCell>Phone Number</TableCell>
-                <TableCell>Website</TableCell>
-                <TableCell>FCA #</TableCell>
-                <TableCell>LinkedIn</TableCell>
+                <TableCell>Mobile Number</TableCell>
+                <TableCell>Email</TableCell>
+                <TableCell>Tier</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -106,7 +111,7 @@ function mapDispatchToProps (dispatch) {
 };
 
 function mapStateToProps (state) {
-  return { companies: state.companies, networks: state.networks }
+  return { companies: state.companies, networks: state.networks, contacts: state.contacts }
 };
 
-export default withStyles(styles)(withRouter(connect(mapStateToProps, mapDispatchToProps)(CompanyContactTable)))
+export default withStyles(styles)(withRouter(connect(mapStateToProps, mapDispatchToProps)(ContactsTable)))

@@ -103,8 +103,8 @@ const styles = theme => ({
 })
 
 class ContactInfo extends Component {
-  constructor () {
-    super()
+  constructor (props) {
+    super(props)
 
     this.state = {
       aboutCardOpen: false,
@@ -116,7 +116,10 @@ class ContactInfo extends Component {
       companyCardOpen: false,
       networkCardOpen: false,
       attachmentsCardOpen: false,
-      emailsCardOpen: false
+      emailsCardOpen: false,
+      contactData: this.getContactData(props),
+      companyData: this.getCompanyData(props),
+      networkData: this.getNetworkData(props)
     }
 
     this.handleCardToggle = this.handleCardToggle.bind(this)
@@ -126,15 +129,34 @@ class ContactInfo extends Component {
     this.setState({[`${cardType}CardOpen`]: !this.state[`${cardType}CardOpen`]})
   }
 
+  getContactData (props) {
+    return props.contacts.filter((contact) => {
+      return contact[0].id === props.params.id
+    })[0][0]
+  }
+
+  getCompanyData (props) {
+    return this.props.companies.filter((company) => {
+      return company[0].id === this.getContactData(props).CompayID
+    })[0][0]
+  }
+
+  getNetworkData (props) {
+    return this.props.networks.filter((network) => {
+      return network[0].id === this.getCompanyData(props).networkID
+    })[0][0]
+  }
+
   renderBasicInfoCard () {
     const { classes } = this.props
+    const { contactData, companyData } = this.state
 
     return (
       <Card className={classes.firstCard}>
         <CardHeader
           avatar={<Avatar className={classes.userAvatar}>LT</Avatar>}
-          title={'Lewis Turner'}
-          subheader={'Lewis Codes Ltd'}
+          title={`${contactData.firstName} ${contactData.lastName}`}
+          subheader={companyData.name}
         />
       </Card>
     )
@@ -167,13 +189,14 @@ class ContactInfo extends Component {
 
   renderAboutCardContent () {
     const { classes } = this.props
+    const { contactData, companyData, networkData } = this.state
 
     return (
       <div className={classes.aboutCard}>
         <TextField
           id={'firstName'}
           label={'First Name'}
-          value={'Lewis'}
+          value={contactData.firstName}
           InputProps={{classes: {input: classes.textField}}}
           margin={'normal'}
           disabled
@@ -181,7 +204,7 @@ class ContactInfo extends Component {
         <TextField
           id={'lastName'}
           label={'Last Name'}
-          value={'Turner'}
+          value={contactData.lastName}
           InputProps={{classes: {input: classes.textField}}}
           margin={'normal'}
           disabled
@@ -189,7 +212,7 @@ class ContactInfo extends Component {
         <TextField
           id={'company'}
           label={'Company'}
-          value={'Lewis Codes Ltd'}
+          value={companyData.name}
           InputProps={{classes: {input: classes.textField}}}
           margin={'normal'}
           disabled
@@ -197,7 +220,7 @@ class ContactInfo extends Component {
         <TextField
           id={'email'}
           label={'Email Address'}
-          value={'lewis@lewiscodes.com'}
+          value={contactData.email}
           InputProps={{classes: {input: classes.textField}}}
           margin={'normal'}
           disabled
@@ -205,7 +228,7 @@ class ContactInfo extends Component {
         <TextField
           id={'altEmail'}
           label={'Alternative Email'}
-          value={'l.turner@crystalsf.com'}
+          value={contactData.altEmail}
           InputProps={{classes: {input: classes.textField}}}
           margin={'normal'}
           disabled
@@ -213,7 +236,7 @@ class ContactInfo extends Component {
         <TextField
           id={'phone'}
           label={'Phone Number'}
-          value={'01922112233'}
+          value={contactData.phone}
           InputProps={{classes: {input: classes.textField}}}
           margin={'normal'}
           disabled
@@ -221,7 +244,7 @@ class ContactInfo extends Component {
         <TextField
           id={'mobile'}
           label={'Mobile Number'}
-          value={'07866460214'}
+          value={contactData.mobile}
           InputProps={{classes: {input: classes.textField}}}
           margin={'normal'}
           disabled
@@ -229,7 +252,7 @@ class ContactInfo extends Component {
         <TextField
           id={'bdm'}
           label={'BDM'}
-          value={'Kris Corns'}
+          value={contactData.BDM}
           InputProps={{classes: {input: classes.textField}}}
           margin={'normal'}
           disabled
@@ -237,15 +260,15 @@ class ContactInfo extends Component {
         <TextField
           id={'tier'}
           label={'Tier'}
-          value={'Silver'}
+          value={contactData.Tier}
           InputProps={{classes: {input: classes.textField}}}
           margin={'normal'}
           disabled
         />
         <TextField
           id={'regStat'}
-          label={'Reg Stat'}
-          value={''}
+          label={'Reg State'}
+          value={contactData.regState}
           InputProps={{classes: {input: classes.textField}}}
           margin={'normal'}
           disabled
@@ -253,7 +276,7 @@ class ContactInfo extends Component {
         <TextField
           id={'network'}
           label={'network'}
-          value={'PTFS'}
+          value={networkData.name}
           InputProps={{classes: {input: classes.textField}}}
           margin={'normal'}
           disabled
@@ -261,7 +284,7 @@ class ContactInfo extends Component {
         <TextField
           id={'linkedIn'}
           label={'Linked In'}
-          value={'https://www.linkedin.com/in/lewis-turner-26796213b'}
+          value={contactData.LinkedIn}
           InputProps={{classes: {input: classes.textField}}}
           margin={'normal'}
           disabled
@@ -335,22 +358,43 @@ class ContactInfo extends Component {
 
     return (
       <div className={classes.formCard}>
-        <Tooltip title={'Mr P Merson, £500,000, 20.08.2018'}>
-          <Avatar className={classes.commercialAvatar}>C</Avatar>
-        </Tooltip>
-        <Tooltip title={'Mr D Dublin, £58,000, 01.08.2018'}>
-          <Avatar className={classes.developmentAvatar}>D</Avatar>
-        </Tooltip>
-        <Tooltip title={'Mr J P Angel, £225,000, 13.07.2018'}>
-          <Avatar className={classes.mortgageAvatar}>M</Avatar>
-        </Tooltip>
-        <Tooltip title={'Mr G Barry, £75,000, 12.07.2018'}>
-          <Avatar className={classes.secondChargeAvatar}>S</Avatar>
-        </Tooltip>
-        <Tooltip title={'Mr J Carew, £23,000, 29.06.2018'}>
-          <Avatar className={classes.bridgingAvatar}>B</Avatar>
-        </Tooltip>
+        {this.state.contactData.form.map((formItem) => {
+          return this.getFormAvatar(formItem)
+        })}
       </div>
+    )
+  }
+
+  getFormAvatar (formItem) {
+    const { classes } = this.props
+    let data = null
+
+    switch (formItem.type) {
+      case 'commercial':
+        data = {class: classes.commercialAvatar, letter: 'C'}
+        break
+      case 'development':
+        data = {class: classes.developmentAvatar, letter: 'D'}
+        break
+      case 'mortgage':
+        data = {class: classes.mortgageAvatar, letter: 'M'}
+        break
+      case 'secondCharge':
+        data = {class: classes.secondChargeAvatar, letter: 'S'}
+        break
+      case 'bridging':
+        data = {class: classes.bridgingAvatar, letter: 'B'}
+        break
+      case 'btl':
+        data = {class: classes.btlAvatar, letter: 'BTL'}
+        break
+      default:
+        data = {}
+    }
+    return (
+      <Tooltip title={formItem.description}>
+        <Avatar className={data.class}>{data.letter}</Avatar>
+      </Tooltip>
     )
   }
 
@@ -767,7 +811,7 @@ function mapDispatchToProps (dispatch) {
 };
 
 function mapStateToProps (state) {
-  return { }
+  return { contacts: state.contacts, companies: state.companies, networks: state.networks }
 };
 
 export default withStyles(styles)(withRouter(connect(mapStateToProps, mapDispatchToProps)(ContactInfo)))
