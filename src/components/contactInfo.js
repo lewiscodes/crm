@@ -117,6 +117,8 @@ class ContactInfo extends Component {
       networkCardOpen: false,
       attachmentsCardOpen: false,
       emailsCardOpen: false,
+      eventsCardOpen: false,
+      personalCardOpen: false,
       contactData: this.getContactData(props),
       companyData: this.getCompanyData(props),
       networkData: this.getNetworkData(props)
@@ -785,6 +787,76 @@ class ContactInfo extends Component {
     )
   }
 
+  renderEventsCard () {
+    const { classes } = this.props
+
+    return (
+      <Card className={classes.card}>
+        <CardHeader
+          title={'Events'}
+          className={classes.collapsingCard}
+          onClick={() => { this.handleCardToggle('events') }}
+          action={
+            <IconButton>
+              {this.state.eventsCardOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+            </IconButton>
+          }
+        />
+        <Collapse in={this.state.eventsCardOpen} timeout='auto' unmountOnExit>
+          <Divider />
+          <CardContent>
+            {this.renderEventsContent()}
+          </CardContent>
+        </Collapse>
+      </Card>
+    )
+  }
+
+  renderEventsContent () {
+    const { classes } = this.props
+
+    return (
+      <div className={classes.subscriptionCard}>
+        <Button variant={'outlined'} color={'primary'}>Add Event</Button>
+      </div>
+    )
+  }
+
+  renderPersonalCard () {
+    const { classes } = this.props
+
+    return (
+      <Card className={classes.card}>
+        <CardHeader
+          title={'Personal'}
+          className={classes.collapsingCard}
+          onClick={() => { this.handleCardToggle('personal') }}
+          action={
+            <IconButton>
+              {this.state.personalCardOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+            </IconButton>
+          }
+        />
+        <Collapse in={this.state.personalCardOpen} timeout='auto' unmountOnExit>
+          <Divider />
+          <CardContent>
+            {this.renderPersonalContent()}
+          </CardContent>
+        </Collapse>
+      </Card>
+    )
+  }
+
+  renderPersonalContent () {
+    const { classes } = this.props
+
+    return (
+      <div className={classes.subscriptionCard}>
+        <Button variant={'outlined'} color={'primary'}>Add Personal Record</Button>
+      </div>
+    )
+  }
+
   render () {
     const { classes } = this.props
 
@@ -801,6 +873,8 @@ class ContactInfo extends Component {
         {this.renderNetworkCard()}
         {this.renderAttachmentsCard()}
         {this.renderEmailsCard()}
+        {this.renderEventsCard()}
+        {this.renderPersonalCard()}
       </div>
     )
   }
