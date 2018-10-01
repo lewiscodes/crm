@@ -10,7 +10,7 @@ import Typography from '@material-ui/core/Typography'
 
 const styles = theme => ({
   root: {
-    height: 'calc(100vh - 344px)',
+    height: 'calc(100vh - 304px)',
     overflow: 'scroll'
   },
   dateHeader: {

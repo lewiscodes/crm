@@ -6,7 +6,7 @@ const Reports = () => {
   return (
     <div>
       <Navigation pageName={'Reports'} contactMenuOpenOnLoad={false} />
-      <div style={{marginTop: 120, height: 0}} >
+      <div style={{marginTop: 80, height: 0}} >
         Reports
       </div>
     </div>

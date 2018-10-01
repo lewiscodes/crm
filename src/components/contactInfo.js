@@ -36,7 +36,7 @@ const styles = theme => ({
     width: '25%',
     maxWidth: '300px',
     borderRight: '1px solid rgba(0, 0, 0, 0.08)',
-    height: 'calc(100vh - 128px)',
+    height: 'calc(100vh - 88px)',
     overflow: 'scroll',
     paddingTop: 0
   },

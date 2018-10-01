@@ -6,7 +6,7 @@ const Events = () => {
   return (
     <div>
       <Navigation pageName={'Events'} contactMenuOpenOnLoad={false} />
-      <div style={{marginTop: 120, height: 0}} >
+      <div style={{marginTop: 80, height: 0}} >
         Events
       </div>
     </div>

@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import cx from 'classnames'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { withRouter, Link } from 'react-router'
@@ -56,20 +57,42 @@ const styles = theme => ({
     padding: '0 8px',
     minHeight: 64
   },
-  menu: {
-    display: 'flex',
-    paddingTop: 0,
-    paddingBottom: 0
-  },
-  menuItem: {
-    borderLeft: '1px solid rgba(0, 0, 0, 0.12)',
-    borderRight: '1px solid rgba(0, 0, 0, 0.12)'
-  },
+  // menu: {
+  //   display: 'flex',
+  //   paddingTop: 0,
+  //   paddingBottom: 0
+  // },
+  // menuItem: {
+  //   borderLeft: '1px solid rgba(0, 0, 0, 0.12)',
+  //   borderRight: '1px solid rgba(0, 0, 0, 0.12)'
+  // },
   linkItem: {
-    textDecoration: 'none'
+    textDecoration: 'none',
+    color: 'white'
   },
   nestedMenu: {
     paddingLeft: theme.spacing.unit * 2
+  },
+  menu: {
+    display: 'flex',
+    listStyle: 'none',
+    padding: 0,
+    margin: 0,
+    fontSize: '1rem',
+    fontWeight: 400,
+    fontFamily: 'Roboto, Helvetica, Arial, sans-serif'
+  },
+  menuItem: {
+    padding: `${theme.spacing.unit}px ${theme.spacing.unit * 2}px`,
+    display: 'flex',
+    alignItems: 'center',
+    cursor: 'pointer'
+  },
+  menuItemHover: {
+    backgroundColor: 'rgba(0, 0, 0, 0.08)'
+  },
+  menuItemIcon: {
+    marginRight: theme.spacing.unit * 2
   }
 })
 
@@ -80,7 +103,12 @@ class Navigation extends Component {
     this.state = {
       accountMenuAnchorElement: null,
       navigationOpen: false,
-      contactsMenuAnchorElement: null
+      contactsMenuAnchorElement: null,
+      dashboardMenuItemHover: false,
+      ContactsMenuItemHover: false,
+      eventsMenuItemHover: false,
+      salesMenuItemHover: false,
+      reportsMenuItemHover: false
     }
 
     this.handleAccountMenuOpen = this.handleAccountMenuOpen.bind(this)
@@ -89,6 +117,11 @@ class Navigation extends Component {
     this.handleNavigationToggle = this.handleNavigationToggle.bind(this)
     this.handleContactsMenuOpen = this.handleContactsMenuOpen.bind(this)
     this.handleContactsMenuClose = this.handleContactsMenuClose.bind(this)
+    this.handleMenuItemHover = this.handleMenuItemHover.bind(this)
+  }
+
+  handleMenuItemHover (e, menuItem) {
+    this.setState({[`${menuItem}MenuItemHover`]: !this.state[`${menuItem}MenuItemHover`]})
   }
 
   handleContactsMenuOpen (e) {
@@ -210,6 +243,67 @@ class Navigation extends Component {
     )
   }
 
+  renderNav () {
+    const { classes } = this.props
+
+    return (
+      <div className={classes.grow}>
+        <ul className={classes.menu}>
+          <Link to={'/crm/'} className={classes.linkItem}>
+            <li
+              className={cx(classes.menuItem, (this.state.dashboardMenuItemHover ? classes.menuItemHover : null))}
+              onMouseEnter={(e) => this.handleMenuItemHover(e, 'dashboard')}
+              onMouseLeave={(e) => this.handleMenuItemHover(e, 'dashboard')}
+            >
+              <HomeIcon className={classes.menuItemIcon} />
+              Dashboard
+            </li>
+          </Link>
+          <li
+            className={cx(classes.menuItem, (this.state.contactsMenuItemHover ? classes.menuItemHover : null))}
+            onMouseEnter={(e) => this.handleMenuItemHover(e, 'contacts')}
+            onMouseLeave={(e) => this.handleMenuItemHover(e, 'contacts')}
+            onClick={this.state.contactsMenuAnchorElement ? this.handleContactsMenuClose : this.handleContactsMenuOpen}
+          >
+            <ContactsIcon className={classes.menuItemIcon} />
+            Contacts
+            {this.renderContactsMenu()}
+          </li>
+          <Link to={'/crm/events'} className={classes.linkItem}>
+            <li
+              className={cx(classes.menuItem, (this.state.eventsMenuItemHover ? classes.menuItemHover : null))}
+              onMouseEnter={(e) => this.handleMenuItemHover(e, 'events')}
+              onMouseLeave={(e) => this.handleMenuItemHover(e, 'events')}
+            >
+              <EventIcon className={classes.menuItemIcon} />
+              Events
+            </li>
+          </Link>
+          <Link to={'/crm/sales'} className={classes.linkItem}>
+            <li
+              className={cx(classes.menuItem, (this.state.salesMenuItemHover ? classes.menuItemHover : null))}
+              onMouseEnter={(e) => this.handleMenuItemHover(e, 'sales')}
+              onMouseLeave={(e) => this.handleMenuItemHover(e, 'sales')}
+            >
+              <SalesIcon className={classes.menuItemIcon} />
+              Sales
+            </li>
+          </Link>
+          <Link to={'/crm/reports'} className={classes.linkItem}>
+            <li
+              className={cx(classes.menuItem, (this.state.reportsMenuItemHover ? classes.menuItemHover : null))}
+              onMouseEnter={(e) => this.handleMenuItemHover(e, 'reports')}
+              onMouseLeave={(e) => this.handleMenuItemHover(e, 'reports')}
+            >
+              <ReportIcon className={classes.menuItemIcon} />
+              Reports
+            </li>
+          </Link>
+        </ul>
+      </div>
+    )
+  }
+
   renderNavigation () {
     const { classes } = this.props
 
@@ -279,12 +373,7 @@ class Navigation extends Component {
     return (
       <AppBar className={classes.appBar}>
         <Toolbar>
-          <IconButton className={classes.menuButton} color={'inherit'}>
-            <MenuIcon onClick={this.handleNavigationToggle} />
-          </IconButton>
-          <Typography className={classes.grow} variant={'title'} color={'inherit'}>
-            {this.props.pageName}
-          </Typography>
+          {this.renderNav()}
           {this.renderAccountSection()}
         </Toolbar>
       </AppBar>
@@ -297,7 +386,7 @@ class Navigation extends Component {
     return (
       <div className={classes.root}>
         {this.renderAppBar()}
-        {this.renderNavigation()}
+        {/* {this.renderNavigation()} */}
       </div>
     )
   }

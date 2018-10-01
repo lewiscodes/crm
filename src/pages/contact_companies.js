@@ -7,7 +7,7 @@ const CompaniesContacts = () => {
   return (
     <div>
       <Navigation pageName={'Contacts - Companies'} contactMenuOpenOnLoad />
-      <div style={{marginTop: 120, height: 0}} >
+      <div style={{marginTop: 80, height: 0}} >
         <CompanyContactTable />
       </div>
     </div>

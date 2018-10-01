@@ -6,7 +6,7 @@ const Dashboard = () => {
   return (
     <div>
       <Navigation pageName={'Dashboard'} contactMenuOpenOnLoad={false} />
-      <div style={{marginTop: 120, height: 0}} >
+      <div style={{marginTop: 80, height: 0}} >
         Dashboard
       </div>
     </div>
